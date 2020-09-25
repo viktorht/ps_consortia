@@ -6,5 +6,5 @@
 library(purrr)
 library(here)
 
-folder_names <- c("data/raw", "data/tidy", "refs", "R", "analysis", "figures", "man")
+folder_names <- c("data/raw", "data/tidy", "refs", "R", "analysis", "figures/deseq2", "man")
 map(folder_names, dir.create) # Creates folder 
