@@ -5,10 +5,11 @@
 # DESeq2 analysis of the count data
 
 rm(list=ls())
-setwd("C:/Users/Viktor/OneDrive - Danmarks Tekniske Universitet/SpecialeF20")
+library(here)
 library(data.table)
 library(DESeq2)
 
+# First I create a function that prepares the counts file and runs the DESeq2 analysis
 do.DESeq2 <- function(cnts.file, use.conditions, direction, outsuffix = "", do.MAplots = FALSE){
   # Read the count data
   cnts <- as.matrix(read.delim(cnts.file, 
@@ -62,7 +63,7 @@ do.DESeq2 <- function(cnts.file, use.conditions, direction, outsuffix = "", do.M
   
   # plotting 
   if (do.MAplots) {
-    png(paste0('results/DESeq2/MAplot_', direction,'_', outsuffix, '.png'))
+    png(paste0('figures/deseq2/MAplot_', direction,'_', outsuffix, '.png'))
     par(mfrow=c(1,2))
     plotMA(res, ylim=c(-5,5), main = "Normal")
     plotMA(resLFC, ylim = c(-5,5), main = "Shrunken")
@@ -75,50 +76,24 @@ do.DESeq2 <- function(cnts.file, use.conditions, direction, outsuffix = "", do.M
   resLFC <<- resLFC
   
   # Exporting 
-  write.csv(as.data.frame(res), 
-            file=paste0("data/clean/DESeq2/","DESeq2Results_",direction,  '-', bac, '_', outsuffix, ".csv"))
   write.csv(as.data.frame(resLFC), 
-            file=paste0("data/clean/DESeq2/","DESeq2Results_",direction,  '-', bac, '_', outsuffix,"_shrunkenLFC.csv"))
+            file=paste0("data/tidy/deseq2/","DESeq2Results_",direction,  '-', bac, '_', outsuffix,"_shrunkenLFC.csv"))
   
 }
 
-<<<<<<< HEAD
-bacteria <- c("A", "S")
+ 
+
+# Run DESeq2 analysis 
+bacteria <- c("P", "S")
 for (bac in bacteria){
-  cnts.file <- paste0('data/raw/trancriptome data/Transcriptome data ABS/',bac, '/4.GeneExprQuatification/4.1.GeneExprQuatification/readcount.xls')
-  use.conditions <- 'all' #c("ABS", bac)
-  direction <- paste0("ABSvs", 'AS')
-  =======
-    bacteria <- c("A", "B", "S")
-  bacteria <- 'S'
-  for (bac in bacteria){
-    cnts.file <- paste0('data/raw/trancriptome data/Transcriptome data ABS/',bac, '/4.GeneExprQuatification/4.1.GeneExprQuatification/readcount.xls')
-    use.conditions <- 'all'
-    direction <- paste0("ABSvs", bac)
-    >>>>>>> growthStateEstMethod1
-    outsuffix = paste0('conditions_', paste0(use.conditions, collapse = '.'))
-    
-    do.DESeq2(cnts.file, use.conditions, direction, outsuffix, do.MAplots = T)
-    summary(res)
-    summary(resLFC)
-  }
+  cnts.file <- paste0('data/raw/',bac, '/4.GeneExprQuatification/4.1.GeneExprQuatification/readcount.xls')
+  use.conditions <- 'all'
+  direction <- paste0("PSvs", bac)
+  outsuffix = paste0('conditions_', paste0(use.conditions, collapse = '_'))
   
-  <<<<<<< HEAD
-  =======
-    saveRDS(dds, file = 'data/clean/DESeq2/RdataFiles/S_dds.rds')
-  >>>>>>> growthStateEstMethod1
-  
-  # For PS sample
-  bacteria <- c("P", "S")
-  for (bac in bacteria){
-    cnts.file <- paste0('data/raw/trancriptome data/Transcriptome data ABS/',bac, '/4.GeneExprQuatification/4.1.GeneExprQuatification/readcount.xls')
-    use.conditions <- c("PS", bac)
-    direction <- paste0("PSvs", bac)
-    outsuffix = paste0('conditions_', paste0(use.conditions, collapse = '.'))
-    
-    do.DESeq2(cnts.file, use.conditions, direction, outsuffix, do.MAplots = T)
-    summary(res)
-    summary(resLFC)
-  }
-  
+  do.DESeq2(cnts.file, use.conditions, direction, outsuffix, do.MAplots = T)
+  summary(res)
+  summary(resLFC)
+}
+
   
