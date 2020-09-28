@@ -7,6 +7,9 @@ library(data.table)
 library(here)
 library(ggplot2)
 bacteriaList <- c('P', 'S')
+richfactorCut <- 0.3
+padjCut <- 0.1
+sizeCut <- 5
 
 # load and aggregate data
 dfAll <- data.frame() # df for data collection of all strains
@@ -35,7 +38,9 @@ dfAll.long[direction == 1, direction := 'up'] # renaming value of assigned varia
 dfAll.long[direction == 2, direction := 'down']
 
 
-mask <- dfAll.long[, kegg.ko] %in% dfAll.long[ ((abs(richfactor) > 0.3) & (padj < 0.1) & (size > 5))][, kegg.ko] 
+mask <- dfAll.long[, kegg.ko] %in% dfAll.long[ ((abs(richfactor) > richfactorCut) & 
+                                                  (padj < padjCut) & 
+                                                  (size > sizeCut))][, kegg.ko] 
 
 # Plotting
 # col plot
@@ -51,5 +56,5 @@ ggplot(dfAll.long[mask, with = TRUE]) +
                          name = 'FDR')+
   xlab('')+
   ylab('Richfactor')
-
+ggsave(filename = 'figures/richfactorColPlot.png')
 
