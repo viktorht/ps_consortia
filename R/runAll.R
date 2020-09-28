@@ -12,6 +12,6 @@ source('R/prepare_gene_sets.R') # create kegg based gene sets from eggnog annota
 
 # Analysis
 source('R/geneSetEnrichmentAnalysis_hyperTest.R')
-
+source('R/richFactor.R')
 
 # plotting
