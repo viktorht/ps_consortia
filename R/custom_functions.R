@@ -404,7 +404,7 @@ calcRichfactor <- function(degseq2Results, geneSets, padjCutOff, lfcCutOff){
   countAll <- lapply(geneSets, function (geneSet) {sum(sigDEGs %in% geneSet)})
   
   
-  degCounts <- data.table('kegg.pathway' = names(countUp),'degUp' = unlist(countUp), 'degDown' = unlist(countDown), 'deg' = unlist(countAll), 'size' = unlist(geneSet.lengths))
+  degCounts <- data.table('kegg.ko' = names(countUp),'degUp' = unlist(countUp), 'degDown' = unlist(countDown), 'deg' = unlist(countAll), 'size' = unlist(geneSet.lengths))
   
   # calculate rich factor 
   degCounts$richfactor.up <- with(degCounts, degUp / size)
