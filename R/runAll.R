@@ -1,7 +1,7 @@
 ## Main workflow: PSconsortia
 ## Constributors: viktorht@yahoo.dk
 
-## Main file to run all
+## Main file to run all scripts
 library(here)
 
 source('R/setup.R')
