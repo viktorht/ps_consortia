@@ -15,3 +15,4 @@ source('R/geneSetEnrichmentAnalysis_hyperTest.R')
 source('R/richFactor.R')
 
 # plotting
+source('R/richfactor_plot.R')
