@@ -424,7 +424,7 @@ GeneSetHyperTest <- function(degResults, geneSet, lfcCut, pvalCut, padj.method =
   # Prob of drawing [enriched and part of gene set X] or more white balls when drawing [# genes in X] times in a population 
   # with [# enriched genes] white balls and [# non-enriched genes] black balls.
   # Checking for down regulation
-  df <- data.frame('kegg.pathway' = names(geneSet), 'pval.down' = NA)
+  df <- data.frame('kegg.ko' = names(geneSet), 'pval.down' = NA)
   
   enriched <- degResults[(log2FoldChange < -lfcCut & padj < pvalCut)]
   notEnriched <- degResults[!(log2FoldChange < -lfcCut & padj < pvalCut)]
