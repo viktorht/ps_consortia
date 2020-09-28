@@ -131,9 +131,10 @@ fetchKeggNames <- function(koNumbers, file = "") {
   
   keggNames <- sapply(keggEntry, function(x){c(x$ENTRY, x$NAME)}) # getting koNumber and name of the pathway
   keggNames <- transpose(as.data.table(keggNames)) # making a dataframe 
-  colnames(keggNames) <- c("pathway", "name") # naming columns 
+
+  colnames(keggNames) <- c("kegg.ko", "pathway.name") # naming columns 
   
-  if (length(keggNames[,pathway]) != length(uniqueKoNumbers)){ # Through warning 
+  if (length(keggNames[,pathway.name]) != length(uniqueKoNumbers)){ # give warning 
     message("Number of input pathways does not match number of pathway in output. This can be due to pathways that were not found in KEGG")
   }
   
