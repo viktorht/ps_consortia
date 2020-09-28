@@ -22,7 +22,7 @@ for (bac in bacteriaList) {
   geneSets <- readRDS(paste0('data/tidy/geneSets/geneSets_', bac, '.rds'))
   
   # Calculate rich factor 
-  degCounts <- calcRichfactor(degseq2Results = deseq2Results, geneSets = geneSets, padjCutOff = 0.05, lfcCutOff = 1) 
+  degCounts <- calcRichfactor(degseq2Results = deseq2Results, geneSets = geneSets, padjCutOff = 0.05, lfcCutOff = 2) 
   degCounts[, Bacteria := as.character(bac)] # adds the bacteria 
 
   
