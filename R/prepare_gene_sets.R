@@ -19,12 +19,12 @@ for (bac in bacteriaList){
   
   if (updatePathwayNameFile) { # This takes a few minutes 
     geneSetNames <- fetchKeggNames(names(geneSets)) # fetch the names of the pathways ways 
-    write.table(geneSetNames, paste0('data/raw/pathway_names_', bac, '.txt')) # save to file 
+    write.table(geneSetNames, paste0('data/tidy/geneSets/pathwayNames_', bac, '.txt')) # save to file 
   }
-  geneSetNames <- read.table(paste0('data/raw/pathway_names_', bac, '.txt'))
+  geneSetNames <- read.table(paste0('data/tidy/geneSets/pathwayNames_', bac, '.txt'))
   
   geneSets[!(names(geneSets) %in% geneSetNames$kegg.ko)] # find pathways that were not found in kegg
   
-  saveRDS(object = geneSets, file = paste0('data/tidy/geneSets_', bac, '.rds'))
+  saveRDS(object = geneSets, file = paste0('data/tidy/geneSets/geneSets_', bac, '.rds'))
 }
 
