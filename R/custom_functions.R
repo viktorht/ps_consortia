@@ -159,25 +159,25 @@ fpkm2tpm <- function(fpkm){
   return(tpm)
 }
 
-readKovasAnnotation <- function(file){
+readKobasAnnotation <- function(file){
   '
-  Reads output from kovas annotation online tool in .txt format. 
+  Reads output from kobas annotation online tool in .txt format. 
   returns data.table format
   '
   library(data.table)
-  kovasAnnotation <- as.data.table(read.csv(file, skip = 3, sep = "|",  header = T, stringsAsFactors = F)) # Read in the data and convert to data.table fread does not work directly on data
-  lastDataRow <- kovasAnnotation[X.Query.Gene.ID == "--------------------", which = T] - 1 # A lot of extra data is at the last part of the file. Row number is identified
-  kovasAnnotation <- kovasAnnotation[1:lastDataRow] # removing the not needed data
-  kovasAnnotation[, c("query", "keggID"):= tstrsplit(X.Query.Gene.ID, "\t")] # Splitting query id and kegg id 
-  kovasAnnotation[, X.Query.Gene.ID := NULL] # Remove now splitted column
-  setcolorder(kovasAnnotation, c("query", "keggID")) # reorder the columns
-  return(kovasAnnotation)
+  kobasAnnotation <- as.data.table(read.csv(file, skip = 3, sep = "|",  header = T, stringsAsFactors = F)) # Read in the data and convert to data.table fread does not work directly on data
+  lastDataRow <- kobasAnnotation[X.Query.Gene.ID == "--------------------", which = T] - 1 # A lot of extra data is at the last part of the file. Row number is identified
+  kobasAnnotation <- kobasAnnotation[1:lastDataRow] # removing the not needed data
+  kobasAnnotation[, c("query", "keggID"):= tstrsplit(X.Query.Gene.ID, "\t")] # Splitting query id and kegg id 
+  kobasAnnotation[, X.Query.Gene.ID := NULL] # Remove now splitted column
+  setcolorder(kobasAnnotation, c("query", "keggID")) # reorder the columns
+  return(kobasAnnotation)
 }
 
-convertGeneSet2keggId <- function(geneSet, kovasAnnotation, removeNoneAnnotations = TRUE){
+convertGeneSet2keggId <- function(geneSet, kobasAnnotation, removeNoneAnnotations = TRUE){
   
   # Convert gene set from geneID to keggGeneID
-  geneSets.kegg <- lapply(geneSet, function(set){kovasAnnotation[query %in% set][,keggID]})
+  geneSets.kegg <- lapply(geneSet, function(set){kobasAnnotation[query %in% set][,keggID]})
   
   # Test if the structure of the two list are identical
   if (!class(geneSet) == class(geneSets.kegg)){ # test class
@@ -189,7 +189,7 @@ convertGeneSet2keggId <- function(geneSet, kovasAnnotation, removeNoneAnnotation
   
   if (removeNoneAnnotations){
     # Remove none values
-    # Kovas does not find annotation for all genes. Some of these none annotated gene maybe present in the gene sets. These are removed.
+    # kobas does not find annotation for all genes. Some of these none annotated gene maybe present in the gene sets. These are removed.
     geneSets.kegg <- lapply(geneSets.kegg, function(set){Filter(function(set){!(set %in% "None")}, set)})
   }
   
