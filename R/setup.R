@@ -1,6 +1,5 @@
-##########
-# Viktor Hesselberg-Thomsen 24-09-2020
-##########
+## Main workflow: PSconsortia
+## Constributors: viktorht@yahoo.dk
 
 # Script sets up directories
 library(purrr)

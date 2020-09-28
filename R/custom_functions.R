@@ -1,3 +1,5 @@
+## Main workflow: PSconsortia
+## Constributors: viktorht@yahoo.dk
 # Functions for Gene set enrichment analysis
 
 readEggnogTable <- function(file) {

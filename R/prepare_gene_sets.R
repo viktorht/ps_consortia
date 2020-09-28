@@ -1,3 +1,5 @@
+## Main workflow: PSconsortia
+## Constributors: viktorht@yahoo.dk
 # Create gene sets from eggnog mapper
 rm(list=ls()) # Removes variables 
 library(here)
