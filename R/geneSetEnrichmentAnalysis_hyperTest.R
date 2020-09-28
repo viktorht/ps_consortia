@@ -26,7 +26,7 @@ for (bac in bacteriaList) {
   
   hyperTestResults <- GeneSetHyperTest(degResults = deseq2Results, 
                                        geneSet = geneSets, 
-                                       lfcCut = 1, 
+                                       lfcCut = 2, 
                                        pvalCut = 0.05)
   
   write.csv(x = hyperTestResults, # Saves data to file
