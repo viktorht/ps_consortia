@@ -6,7 +6,7 @@ library(purrr)
 library(here)
 
 folder_names <- c("data/raw", 
-                  "data/tidy", "data/tidy/deseq2", "data/tidy/geneSets",
+                  "data/tidy", "data/tidy/deseq2", "data/tidy/geneSets", 'data/tidy/geneSetEnrichmentAnalysis',
                   "refs", 
                   "R", 
                   "analysis", 
