@@ -6,16 +6,12 @@ library(data.table)
 source('R/custom_functions.R')
 
 use.data = 'PS'
-bac = 'S'
 
 if (use.data == "PS"){
   eggnog.files <- list("S" = c("data/raw/eGGNOGmapper/Bacillus.tsv"), 
                        "P" = c("data/raw/eGGNOGmapper/job_MM_skhrncty_annotations_pseudomonas.tsv"))
   dat.file <- list('P' = c('DESeq2Results_PSvsP-P_conditions_all_shrunkenLFC.csv'),
                    'S' = c('DESeq2Results_PSvsS-S_conditions_all_shrunkenLFC.csv'))
-
-  
-  outFolderName <- 'DESeq2based'
   bacteriaList <- c(quote(S), quote(P)) # quote is used to the make use of the bac variable to subset data.table
 }
 
