@@ -9,7 +9,7 @@ source("R/custom_functions.R")
 
 ###### Input data ##########
 bacteriaList <- c(quote(P), quote(S)) # quote is used to the make use of the bac variable to subset data.table
-updatePathwayNameFile <- TRUE
+updatePathwayNameFile <- FALSE
 eggnog.files <- list("S" = c("data/raw/eGGNOG_mapper/Bacillus.tsv"), 
                      "P" = c("data/raw/eGGNOG_mapper/job_MM_skhrncty_annotations_pseudomonas.tsv"))
 ############################
