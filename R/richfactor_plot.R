@@ -35,7 +35,7 @@ dfAll.long[direction == 1, direction := 'up'] # renaming value of assigned varia
 dfAll.long[direction == 2, direction := 'down']
 
 
-mask <- dfAll.long[, kegg.ko] %in% dfAll.long[ ((abs(richfactor) > 0.5) & (padj < 0.1) & (size > 5))][, kegg.ko] 
+mask <- dfAll.long[, kegg.ko] %in% dfAll.long[ ((abs(richfactor) > 0.3) & (padj < 0.1) & (size > 5))][, kegg.ko] 
 
 # Plotting
 # col plot
