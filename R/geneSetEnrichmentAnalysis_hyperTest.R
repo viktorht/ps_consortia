@@ -6,7 +6,7 @@ library(data.table)
 source('R/custom_functions.R')
 
 use.data = 'PS'
-
+use.geneSets <- 'eggnog'
 if (use.data == "PS"){
   eggnog.files <- list("S" = c("data/raw/eGGNOGmapper/Bacillus.tsv"), 
                        "P" = c("data/raw/eGGNOGmapper/job_MM_skhrncty_annotations_pseudomonas.tsv"))
@@ -15,14 +15,14 @@ if (use.data == "PS"){
   bacteriaList <- c(quote(S), quote(P)) # quote is used to the make use of the bac variable to subset data.table
 }
 
-degCountsAll <- data.table(NULL) # for collecting data
 for (bac in bacteriaList) {
+  geneSets <- loadGeneSets(folderPath = 'data/tidy/geneSets/', # selected the correct gene set file
+                           bacteria = bac, 
+                           use.geneSets = use.geneSets)
+  
   # load deseq2 results
   deseq2Results <- fread(input = paste0('data/tidy/DESeq2/', dat.file[[bac]]))
   setnames(deseq2Results, 'V1', 'geneID')
-  
-  # Make geneSets from eggnog
-  geneSets <- readRDS(paste0('data/tidy/geneSets/geneSets_', bac, '.rds'))
   
   hyperTestResults <- GeneSetHyperTest(degResults = deseq2Results, 
                                        geneSet = geneSets, 
@@ -30,7 +30,7 @@ for (bac in bacteriaList) {
                                        pvalCut = 0.05)
   
   write.csv(x = hyperTestResults, # Saves data to file
-            file = paste0('data/tidy/geneSetEnrichmentAnalysis/hyperTestResults_', bac, '.csv'),
+            file = paste0('data/tidy/geneSetEnrichmentAnalysis/hyperTestResults_', use.geneSets, '_', bac, '.csv'),
             row.names = F)
 }
 
