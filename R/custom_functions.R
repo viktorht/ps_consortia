@@ -481,6 +481,8 @@ lfcOfGenesInPathway <- function(bac, pathway.id, joyplot.dt2, result.files){
 }
 
 loadGeneSets <- function(folderPath, bacteria, use.geneSets){
+  ## Load gene sets based on the desired annotation (i.e. eggnog or kobas)
+  
   if (!(use.geneSets %in% c('kobas', 'eggnog'))){ # Check validity of use.geneSets
     stop('Invalid use.geneSets selected.')
   }
