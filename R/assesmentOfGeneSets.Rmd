@@ -1,0 +1,74 @@
+---
+title: "assesmentOfGeneSets"
+author: "Viktor Hesselberg-Thomsen"
+date: "29/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(data.table)
+library(KEGGREST)
+library(ggplot2)
+library(plotly)
+library(htmlwidgets)
+source('custom_functions.R', local = knitr::knit_global())
+```
+
+```{r}
+# set bacteria
+bac <- 'P'
+```
+
+
+```{r}
+# load data
+geneSets_kobas <- readRDS(file = here(paste0('data/tidy/geneSets/geneSets_Kobas_', bac, '.rds')))
+geneSets_eggnog <- readRDS(file = here(paste0('data/tidy/geneSets/geneSets_', bac, '.rds')))
+richfactor_kobas <- read.csv(file = here(paste0('data/tidy/geneSetEnrichmentAnalysis/richFactor_kobas_', bac, '.csv')))
+richfactor_eggnog <- read.csv(file = here(paste0('data/tidy/geneSetEnrichmentAnalysis/richFactor_eggnog_', bac, '.csv')))
+
+```
+
+Investigate some summary stats of the gene sets sizes
+```{r}
+# number of gene set assocciations 
+print('eggnog')
+sum(richfactor_eggnog$size)
+summary(richfactor_eggnog$size)
+print('number of gene sets')
+length(richfactor_eggnog$size)
+
+print('kobas')
+sum(richfactor_kobas$size)
+summary(richfactor_kobas$size)
+print('number of gene sets')
+length(richfactor_kobas$size)
+
+# boxplot
+boxplot(data.frame('eggnog' = richfactor_eggnog$size, 'kobas' = richfactor_kobas$size), outline = F)
+
+```
+
+* There are way fewer genes associated to gene sets in kobas (for P). Thus, maybe the each gene is associated with fewer gene sets.
+* The small median of eggnog could indicate many incomplete or falsely assigned gene sets. This is supported by the large number of gene sets in eggnog based annotation
+* Actually >25 of the gene sets from eggnog will be removed with the size > 5 threshold.
+* Based on only the above results, so far kobas seem the most reliable
+
+```{r}
+geneOccurences <- merge(x = as.data.frame(table(unlist(geneSets_eggnog))),
+                        y = as.data.frame(table(unlist(geneSets_kobas))),
+                        by = 'Var1', all = T, suffixes = c('_eggnog', '_kobas'))
+colnames(geneOccurences)[1] <- 'geneID'
+dim(geneOccurences)
+head(geneOccurences)
+
+ggplot(data = geneOccurences)+
+  geom_point(aes(Freq_eggnog, Freq_kobas))
+ggplotly()
+```
+
+
+
+
