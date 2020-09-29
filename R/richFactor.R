@@ -14,17 +14,9 @@ if (use.data == "PS"){
 
 
 for (bac in bacteriaList) {
-  if (!(use.geneSets %in% c('kobas', 'eggnog'))){ # Check validity of use.geneSets
-    stop('Invalid use.geneSets selected.')
-  }
-  
-  # load selected gene sets
-  if (use.geneSets == 'kobas'){
-    geneSets <- readRDS(paste0('data/tidy/geneSets/geneSets_kobas_', bac, '.rds'))
-  }
-  if (use.geneSets == 'eggnog'){
-    geneSets <- readRDS(paste0('data/tidy/geneSets/geneSets_', bac, '.rds'))
-  }
+  geneSets <- loadGeneSets(folderPath = 'data/tidy/geneSets/', # selected the correct gene set file
+                           bacteria = bac, 
+                           use.geneSets = use.geneSets)
   
   # load deseq2 results
   deseq2Results <- fread(input = paste0('data/tidy/DESeq2/', dat.file[[bac]]))

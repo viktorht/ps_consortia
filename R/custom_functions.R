@@ -479,3 +479,18 @@ lfcOfGenesInPathway <- function(bac, pathway.id, joyplot.dt2, result.files){
   res <- res[order(kegg.ko,decreasing=TRUE),]
   return(res)
 }
+
+loadGeneSets <- function(folderPath, bacteria, use.geneSets){
+  if (!(use.geneSets %in% c('kobas', 'eggnog'))){ # Check validity of use.geneSets
+    stop('Invalid use.geneSets selected.')
+  }
+  
+  # load selected gene sets
+  if (use.geneSets == 'kobas'){
+    geneSets <- readRDS(paste0(folderPath, 'geneSets_kobas_', bacteria, '.rds'))
+  }
+  if (use.geneSets == 'eggnog'){
+    geneSets <- readRDS(paste0('data/tidy/geneSets/geneSets_', bacteria, '.rds'))
+  }
+  return(geneSets)
+}
