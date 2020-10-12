@@ -1,6 +1,34 @@
 ## Main workflow: PSconsortia
 ## Constributors: viktorht@yahoo.dk
 
+# Install required packeges
+if (!requireNamespace("BiocManager", quietly = TRUE)) # Bioconductor installer
+  install.packages("BiocManager")
+
+if (!requireNamespace("DESeq2", quietly = TRUE)){ # DESeq2 package
+  BiocManager::install("DESeq2")
+}
+
+if (!requireNamespace("KEGGREST", quietly = TRUE)){ # KEGGREST package
+  BiocManager::install("KEGGREST")
+}
+
+if (!requireNamespace("ggplot2", quietly = TRUE)){ # ggplot2 package
+  install.packages('ggplot2')
+}
+
+if (!requireNamespace("here", quietly = TRUE)){ # here package
+  install.packages('here')
+}
+
+if (!requireNamespace("purr", quietly = TRUE)){ # purr package
+  install.packages('purr')
+}
+
+if (!requireNamespace("data.table", quietly = TRUE)){ # DESeq2 package
+  install.packages('data.table')
+}
+
 # Script sets up directories
 library(purrr)
 library(here)
