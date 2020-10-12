@@ -7,16 +7,24 @@ library(data.table)
 library(here)
 library(ggplot2)
 bacteriaList <- c('P', 'S')
+bacKeggId <- c('P' = 'pae', 'S' = 'bamy')
 richfactorCut <- 0.3
 padjCut <- 0.1
 sizeCut <- 5
+use.geneSets <- 'kobas'
 
 # load and aggregate data
 dfAll <- data.frame() # df for data collection of all strains
 for (bac in bacteriaList){
   pathwayNames <- read.table(paste0("data/tidy/geneSets/pathwayNames_", bac, ".txt")) # read kegg pathway names
-  richfactor <- read.csv(file = paste0("data/tidy/geneSetEnrichmentAnalysis/richFactor_", bac, ".csv")) # read richfactor data
-  hyperTestResults <- read.csv(file = paste0("data/tidy/geneSetEnrichmentAnalysis/hyperTestResults_", bac, ".csv")) # read results of hypergeometric test
+  richfactor <- read.csv(file = paste0("data/tidy/geneSetEnrichmentAnalysis/richFactor_", use.geneSets, '_', bac, ".csv")) # read richfactor data
+  hyperTestResults <- read.csv(file = paste0("data/tidy/geneSetEnrichmentAnalysis/hyperTestResults_", use.geneSets, '_', bac, ".csv")) # read results of hypergeometric test
+  
+  if (use.geneSets == 'kobas'){
+    hyperTestResults$kegg.ko <- gsub(pattern = paste0('path:', bacKeggId[[bac]]) , replacement = 'ko', x = hyperTestResults$kegg.ko)
+    richfactor$kegg.ko <- gsub(pattern = paste0('path:', bacKeggId[[bac]]) , replacement = 'ko', x = richfactor$kegg.ko)
+    
+  }
   
   df <- merge.data.frame(x = pathwayNames, # merge data to one df
                          y = richfactor)
@@ -26,6 +34,8 @@ for (bac in bacteriaList){
   dfAll <- rbind.data.frame(dfAll, df) # combine with other strains
   rm(df) # cleans
 }
+
+
 
 # format data for plotting
 dfAll <- as.data.table(dfAll)
@@ -56,5 +66,5 @@ ggplot(dfAll.long[mask, with = TRUE]) +
                          name = 'FDR')+
   xlab('')+
   ylab('Richfactor')
-ggsave(filename = 'figures/richfactorColPlot.png')
+ggsave(filename = paste0('figures/richfactorColPlot_', use.geneSets, '.png'))
 
