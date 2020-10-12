@@ -2,6 +2,9 @@
 ## Constributors: viktorht@yahoo.dk
 
 ## Main file to run all scripts
+if (!requireNamespace("here", quietly = TRUE)){ # here package. The rest of the packages is installed in setup.R
+  install.packages('here')
+}
 library(here)
 
 source('R/setup.R')

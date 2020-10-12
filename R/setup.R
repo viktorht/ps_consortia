@@ -17,12 +17,9 @@ if (!requireNamespace("ggplot2", quietly = TRUE)){ # ggplot2 package
   install.packages('ggplot2')
 }
 
-if (!requireNamespace("here", quietly = TRUE)){ # here package
-  install.packages('here')
-}
 
-if (!requireNamespace("purr", quietly = TRUE)){ # purr package
-  install.packages('purr')
+if (!requireNamespace("purrr", quietly = TRUE)){ # purr package
+  install.packages('purrr')
 }
 
 if (!requireNamespace("data.table", quietly = TRUE)){ # DESeq2 package
