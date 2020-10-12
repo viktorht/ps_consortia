@@ -65,10 +65,12 @@ dim(geneOccurences)
 head(geneOccurences)
 
 ggplot(data = geneOccurences)+
-  geom_point(aes(Freq_eggnog, Freq_kobas)) 
+  geom_point(aes(Freq_eggnog, Freq_kobas)) +
+  geom_count(aes(Freq_eggnog, Freq_kobas)) +
+  geom_abline(intercept = 0, slope = 1)
 
 ```
 
-
+The line indicates the genes that are assigned to the same number of pathways in both methods. There more points to the right of the line this indicate that eggnog more often assign a gene to more pathways than kobas. I believe that this is a bad property and the I will trust more in the concervative estimate from kobas.
 
 
