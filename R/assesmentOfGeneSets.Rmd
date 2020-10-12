@@ -65,8 +65,8 @@ dim(geneOccurences)
 head(geneOccurences)
 
 ggplot(data = geneOccurences)+
-  geom_point(aes(Freq_eggnog, Freq_kobas))
-ggplotly()
+  geom_point(aes(Freq_eggnog, Freq_kobas)) 
+
 ```
 
 
