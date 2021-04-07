@@ -393,7 +393,7 @@ plotPathviewMapKO <- function(pathIds, deseq2Results, eggnogTable, pvOutsuffix, 
 calcRichfactor <- function(degseq2Results, geneSets, padjCutOff, lfcCutOff){
   geneSet.lengths <- lapply(geneSets, length) # Count number of DEGs in a gene set
   
-  sigDEGs <- deseq2Results[padj < padjCutOff, geneID]
+  sigDEGs <- deseq2Results[(padj < padjCutOff & abs(log2FoldChange) > lfcCutOff), geneID]
   sigDEGsUp <- deseq2Results[(padj < padjCutOff & log2FoldChange > lfcCutOff), geneID]
   sigDEGsDown <- deseq2Results[(padj < padjCutOff & log2FoldChange < -1*lfcCutOff), geneID]
   
