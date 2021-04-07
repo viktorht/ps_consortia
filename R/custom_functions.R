@@ -426,6 +426,7 @@ GeneSetHyperTest <- function(degResults, geneSet, lfcCut, pvalCut, padj.method =
   # Checking for down regulation
   df <- data.frame('kegg.ko' = names(geneSet), 'pval.down' = NA)
   
+  # Test downregulated genes
   enriched <- degResults[(log2FoldChange < -lfcCut & padj < pvalCut)]
   notEnriched <- degResults[!(log2FoldChange < -lfcCut & padj < pvalCut)]
   
@@ -439,7 +440,7 @@ GeneSetHyperTest <- function(degResults, geneSet, lfcCut, pvalCut, padj.method =
     df$pval.down[i] <- phyper(numEnrichedInGeneSet-1, numEnriched, numNotEnriched, lenGeneSet, lower.tail = FALSE)
   }
   
-  # Checking for up regulation
+  # Test upregulated genes
   df$pval.up <- NA
   enriched <- degResults[(log2FoldChange > lfcCut & padj < pvalCut)]
   notEnriched <- degResults[!(log2FoldChange > lfcCut & padj < pvalCut)]
