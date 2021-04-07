@@ -3,7 +3,7 @@ library(data.table)
 source('R/custom_functions.R')
 
 use.data = 'PS'
-use.geneSets = 'kobas'
+use.geneSets = 'eggnog'
 if (use.data == "PS"){
   eggnog.files <- list("S" = c("data/raw/eGGNOGmapper/Bacillus.tsv"), 
                        "P" = c("data/raw/eGGNOGmapper/job_MM_skhrncty_annotations_pseudomonas.tsv"))
