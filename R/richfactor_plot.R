@@ -8,10 +8,10 @@ library(here)
 library(ggplot2)
 bacteriaList <- c('P', 'S')
 bacKeggId <- c('P' = 'pae', 'S' = 'bamy')
-richfactorCut <- 0.3
+richfactorCut <- 0.0
 padjCut <- 0.1
 sizeCut <- 5
-use.geneSets <- 'kobas'
+use.geneSets <- 'eggnog'
 
 # load and aggregate data
 dfAll <- data.frame() # df for data collection of all strains
