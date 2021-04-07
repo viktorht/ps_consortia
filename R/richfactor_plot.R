@@ -6,6 +6,7 @@ rm(list = ls())
 library(data.table)
 library(here)
 library(ggplot2)
+library(ggpubr)
 bacteriaList <- c('P', 'S')
 bacKeggId <- c('P' = 'pae', 'S' = 'bamy')
 richfactorCut <- 0.0
@@ -59,12 +60,15 @@ ggplot(dfAll.long[mask, with = TRUE]) +
   coord_flip() +
   geom_hline(yintercept=0) +
   facet_wrap(.~Bacteria)+
-  scale_colour_gradientn(values = c(0, 0.05, 0.1, 1), 
-                         breaks = c(0, 0.05, 0.5, 0.1, 1), 
-                         colors = c('red', 'yellow', 'blue'), 
+  scale_colour_gradientn(values = c(0, 0.1, 1), 
+                         breaks = c(0, 0.1, 0.5, 1), 
+                         colors = c('#F8766D', 'white', '#00BFC4'), 
                          aesthetics = "fill", 
-                         name = 'FDR')+
+                         name = 'FDR',
+                         guide = "colourbar")+
   xlab('')+
-  ylab('Richfactor')
+  ylab('Richfactor')+
+  theme_bw(base_size = 11)+
+  theme(legend.position = "right")
 ggsave(filename = paste0('figures/richfactorColPlot_', use.geneSets, '.png'))
 
